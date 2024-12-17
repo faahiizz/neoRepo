@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Split-Screen Search Engine</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .header {
+            background-color: #008080;
+            color: white;
+            padding: 10px;
+            text-align: center;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .search-bar {
+            margin: 20px auto;
+            text-align: center;
+        }
+
+        .search-bar input[type="text"] {
+            width: 60%;
+            padding: 10px;
+            font-size: 16px;
+        }
+
+        .search-bar button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #008080;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .section {
+            width: 50%;
+            height: 50vh;
+            overflow-y: auto;
+            border: 1px solid #ddd;
+            box-sizing: border-box;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 1s forwards;
+        }
+
+        .section:nth-child(2) { animation-delay: 0.2s; }
+        .section:nth-child(3) { animation-delay: 0.4s; }
+        .section:nth-child(4) { animation-delay: 0.6s; }
+        .section:nth-child(5) { animation-delay: 0.8s; }
+        .section:nth-child(6) { animation-delay: 1s; }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .section h2 {
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .list-item {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+            transition: background-color 0.3s;
+        }
+
+        .list-item:hover {
+            background-color: #f1f1f1;
+        }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <h1>NexFind.com</h1>
+    <div class="search-bar">
+        <input type="text" id="searchQuery" placeholder="Enter your search query...">
+        <button onclick="performSearch()">Search</button>
+    </div>
+</div>
+
+<div class="container">
+    <div class="section" id="allDetails">
+        <h2> Details</h2>
+        <div id="allDetailsList"></div>
+    </div>
+    <div class="section" id="images">
+        <h2>Images</h2>
+        <div id="imagesList"></div>
+    </div>
+    <div class="section" id="videos">
+        <h2>Videos</h2>
+        <div id="videosList"></div>
+    </div>
+    <div class="section" id="news">
+        <h2>News</h2>
+        <div id="newsList"></div>
+    </div>
+    <div class="section" id="books">
+        <h2>Books</h2>
+        <div id="booksList"></div>
+    </div>
+    <div class="section" id="maps">
+        <h2>Maps</h2>
+        <div id="mapsList"></div>
+    </div>
+</div>
+
+<script>
+    function performSearch() {
+        const query = document.getElementById('searchQuery').value;
+        if (!query) {
+            alert('Please enter a search query.');
+            return;
+        }
+
+        window.location.href = `defualt.html?query=${query}`;
+    }
+
+    function getQueryParameter(name) {
+        const urlParams = new URLSearchParams(window.location.search);
+        return urlParams.get(name);
+    }
+
+    document.addEventListener('DOMContentLoaded', (event) => {
+        const query = getQueryParameter('query');
+        if (query) {
+            document.getElementById('searchQuery').value = query;
+
+            // Placeholder for fetching and displaying search results
+            document.getElementById('allDetailsList').innerHTML = `<div class="list-item">Sample detail result for "${query}"</div>`;
+            document.getElementById('imagesList').innerHTML = `<div class="list-item">Sample image result for "${query}"</div>`;
+            document.getElementById('videosList').innerHTML = `<div class="list-item">Sample video result for "${query}"</div>`;
+            document.getElementById('newsList').innerHTML = `<div class="list-item">Sample news result for "${query}"</div>`;
+            document.getElementById('booksList').innerHTML = `<div class="list-item">Sample book result for "${query}"</div>`;
+            document.getElementById('mapsList').innerHTML = `<div class="list-item">Sample map result for "${query}"</div>`;
+        }
+    });
+</script>
+
+</body>
+</html>

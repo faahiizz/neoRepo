@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Previous History</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f2f5;
+            margin: 0;
+            padding: 0;
+        }
+        .dark-mode {
+	background-color: #333;
+	color: #fff;
+}
+        .header {
+            background-color: #335247;
+            color: #fff;
+            padding: 10px 0;
+            text-align: right;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .header .icon {
+            color: #fffdfd;
+            font-size: 20px;
+            margin-right: 20px;
+            margin-left: 10px;
+            cursor: pointer;
+        }
+        .header .right {
+            text-align: right;
+            margin: 0 10px;
+        }
+        .header button {
+            color: #ffffff;
+            background-color: transparent;
+            border: none;
+            font-size: 17px;
+        }
+        .header .dropdown-toggle {
+            color: #ffffff;
+            font-size: 24px;
+        }
+        .dropdown-menu {
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            opacity: 0;
+            transform: translateY(-10px);
+        }
+        .dropdown-menu.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .container {
+            padding: 40px;
+            max-width: 1200px;
+            margin: auto;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        .footer {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background-color: #335247;
+            color: #fff;
+            padding: 3px 0;
+            text-align: right;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .footer .left {
+            text-align: left;
+            margin-left: 20px;
+        }
+        .footer button {
+            margin-right: 20px;
+            color: #ffffff;
+            background-color: transparent;
+            border: none;
+            font-size: 17px;
+            cursor: pointer;
+        }
+        table {
+            width: 100%;
+            margin-top: 20px;
+        }
+        th, td {
+            text-align: center;
+            padding: 10px;
+        }
+        th {
+            background-color: #f1f1f1;
+        }
+    </style>
+</head>
+<script src="Settings.js"></script>
+
+<body>
+    <div class="header">
+        <div class="left">
+            <div class="icon" onclick="goHome()">
+                <i class="fa fa-home"></i>
+            </div>
+        </div>
+        <div class="right">
+            <div class="dropdown">
+                <button class="dots-icon" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                    <span class="dots-icon">&#8942;</span>
+                </button>
+                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
+                    <li><a class="dropdown-item" href="Settings.html">Settings</a></li>
+                    <li><a class="dropdown-item" href="login.html">Logout</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <h1>Previous Finance History</h1>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Month</th>
+                    <th>Income</th>
+                    <th>Expenses</th>
+                    <th>Savings</th>
+                    <th>Details</th>
+                    <th>Remove</th>
+                </tr>
+            </thead>
+            <tbody id="historyTableBody">
+                <!-- Rows will be added here dynamically -->
+            </tbody>
+        </table>
+    </div>
+
+    <div class="footer">
+        <div class="left">
+            <p>&copy; 2024 PennyTracker. All rights reserved.</p>
+        </div>
+    </div>
+
+    <script>
+        function goHome() {
+            window.location.href = 'Dashboard.html';
+        }
+
+        function viewProfile() {
+            window.location.href = 'Profile.html';
+        }
+
+        function viewSettings() {
+            window.location.href = 'Settings.html';
+        }
+
+        function logout() {
+            console.log('Logging out...');
+        }
+
+        function contactUs() {
+            window.location.href = 'ContactUs.html';
+        }
+
+        function aboutUs() {
+            window.location.href = 'AboutUs.html';
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            fetchFinanceHistory();
+        });
+
+        function fetchFinanceHistory() {
+            fetch('FinanceServlet')
+                .then(response => response.json())
+                .then(data => {
+                    const tableBody = document.getElementById('historyTableBody');
+                    tableBody.innerHTML = '';
+
+                    data.forEach(item => {
+                        const row = document.createElement('tr');
+                        row.innerHTML = `
+                            <td>${item.month}</td>
+                            <td>${item.income}</td>
+                            <td>${item.totalExpenses}</td>
+                            <td>${item.savings}</td>
+                            <td><button class="btn btn-warning view-expenses" onclick="viewExpenses('${item.id}')">View Expenses</button></td>
+                            <td><button class="btn btn-danger delete" onclick="removeRow(this, '${item.id}')">Delete</button></td>
+                        `;
+                        tableBody.appendChild(row);
+                    });
+                })
+                .catch(error => console.error('Error fetching finance history:', error));
+        }
+
+
+        function viewExpenses(id) {
+            fetch(`FinanceServlet?financeId=${id}&action=getExpenses`)
+                .then(response => response.json())
+                .then(expenses => {
+                    if (expenses.length === 0) {
+                        alert(`No expenses found for this entry.`);
+                    } else {
+                        alert(`Expenses:\n` + expenses.map(exp => `${exp.category}: $${exp.amount.toFixed(2)}`).join('\n'));
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching expenses:', error);
+                    alert(`Failed to fetch expenses. Please try again later.`);
+                });
+        }
+
+
+        function removeRow(button, id) {
+            fetch(`FinanceServlet?financeId=${id}&action=deleteExpenses`, {
+                method: 'GET'
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.message === "Expenses deleted successfully.") {
+                    const row = button.closest('tr');
+                    row.parentNode.removeChild(row);
+                    alert(`Expenses deleted successfully.`);
+                } else if (data.message === "No expenses found for the specified finance ID.") {
+                    alert(`No expenses found.`);
+                } else {
+                    alert(`Error: ${data.message}`);
+                }
+            })
+            .catch(error => {
+                console.error('Error deleting expenses:', error);
+                alert(`Failed to delete expenses.`);
+            });
+        }
+
+    </script>
+</body>
+</html>

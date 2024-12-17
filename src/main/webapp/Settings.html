@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Settings - Personal Finance Tracker</title>
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+	crossorigin="anonymous">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+	integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+	crossorigin="anonymous"></script>
+<style>
+body {
+	font-family: Arial, sans-serif;
+	background-color: #f0f2f5;
+	margin: 0;
+	padding: 0;
+}
+
+.header {
+	background-color: #335247;
+	color: #fff;
+	padding: 10px 0;
+	text-align: left;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.header .icon {
+	color: #fffdfd;
+	font-size: 20px;
+	margin-right: 20px;
+	margin-left: 10px;
+	cursor: pointer;
+}
+
+.header button {
+	color: #ffffff;
+	background-color: transparent;
+	border: none;
+	font-size: 17px;
+}
+
+.container {
+	padding: 40px;
+	max-width: 800px;
+	margin: auto;
+	background-color: #fdfdfd;
+	border-radius: 10px;
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.content h1 {
+	margin-top: 20px;
+	font-size: 24px;
+	color: #333;
+}
+
+.content button {
+	width: 100%;
+	margin-bottom: 10px;
+	padding: 15px;
+	font-size: 18px;
+	color: #fff;
+	background-color: #335247;
+	border: none;
+	cursor: pointer;
+	text-align: left;
+}
+
+.content button:hover {
+	background-color: #2a423a;
+}
+
+.content button i {
+	margin-right: 10px;
+}
+
+.modal {
+	display: none;
+	position: fixed;
+	z-index: 1;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	overflow: auto;
+	background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content {
+	background-color: #fffdfd;
+	margin: 15% auto; /* Center horizontally */
+	padding: 20px;
+	border: 1px solid #888;
+	width: 80%;
+	max-width: 500px;
+	border-radius: 10px;
+}
+
+.modal-header, .modal-body, .modal-footer {
+	padding: 10px;
+}
+
+.modal-header {
+	background-color: #335247;
+	color: white;
+	border-top-left-radius: 10px;
+	border-top-right-radius: 10px;
+	display: flex;
+	justify-content: flex-start; /* Align items to the start (left) */
+	align-items: center;
+}
+
+.modal-header h4 {
+	margin: 0; /* Remove default margin */
+	text-align: left; /* Ensure text is aligned to the left */
+	padding: 0px 10px;
+	flex-grow: 1; /* Allow the header text to take up available space */
+}
+
+.modal-header .close {
+	margin-left: 0; /* Move the close button to the far right */
+}
+
+.close {
+	color: white;
+	font-size: 28px;
+	font-weight: bold;
+	cursor: pointer;
+}
+
+.close:hover, .close:focus {
+	color: #000;
+	text-decoration: none;
+	cursor: pointer;
+}
+
+.dark-mode {
+	background-color: #333;
+	color: #fff;
+}
+
+.footer {
+	position: fixed;
+	bottom: 0;
+	width: 100%;
+	background-color: #335247;
+	color: #fff;
+	padding: 3px 0;
+	text-align: right;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.footer .left {
+	text-align: left;
+	margin-left: 20px;
+}
+
+.footer button {
+	margin-right: 20px;
+	color: #ffffff;
+	background-color: transparent;
+	border: none;
+	font-size: 17px;
+	cursor: pointer;
+}
+/* New styles for dropdown menu */
+.dropdown-menu {
+	display: none;
+	position: absolute;
+	right: 20px;
+	bottom: 50px;
+	background-color: #f9f9f9;
+	min-width: 160px;
+	box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+	z-index: 1;
+}
+
+.dropdown-menu a {
+	color: black;
+	padding: 12px 16px;
+	text-decoration: none;
+	display: block;
+}
+
+.dropdown-menu a:hover {
+	background-color: #f1f1f1;
+}
+
+.list-view {
+	list-style-type: none;
+	padding: 0;
+}
+
+.list-view li {
+	padding: 10px;
+	background-color: #fdfdfd;
+	margin-bottom: 10px;
+	border: 1px solid #ddd;
+	border-radius: 5px;
+}
+</style>
+</head>
+<body>
+	<div class="header">
+		<div class="left">
+			<div class="icon" onclick="goHome()">
+				<i class="fa fa-home"></i>
+			</div>
+		</div>
+	</div>
+
+	<div class="container content">
+		<h1>
+			<b>Settings</b>
+		</h1>
+		<button onclick="openModal('changePasswordModal')">
+			<i class="fa fa-lock"></i>Change Password
+		</button>
+		<button onclick="openModal('languageSettingsModal')">
+			<i class="fa fa-language"></i>Language Settings
+		</button>
+		<button onclick="openModal('fontSettingsModal')">
+			<i class="fa fa-font"></i>Font Settings
+		</button>
+		<button onclick="openModal('darkModeModal')">
+			<i class="fa fa-moon"></i>Dark Mode
+		</button>
+		<button onclick="openModal('privacySettingsModal')">
+			<i class="fa fa-user-shield"></i>Privacy Settings
+		</button>
+		<button onclick="openModal('moreSettingsModal')">
+			<i class="fa fa-cogs"></i>More Settings
+		</button>
+
+	</div>
+
+
+	<div id="changePasswordModal" class="modal">
+		<div class="modal-content">
+			<div class="modal-header">
+				<span class="close" onclick="closeModal('changePasswordModal')">&times;</span>
+				<h4 style="text-align: left;">Change Password</h4>
+			</div>
+			<div class="modal-body">
+				<form id="changePasswordForm" action="ChangePasswordServlet"
+					method="post">
+					<div class="mb-3">
+						<label for="currentPassword" class="form-label">Current
+							Password</label> <input type="password" class="form-control"
+							id="currentPassword" name="currentPassword" required>
+					</div>
+					<div class="mb-3">
+						<label for="newPassword" class="form-label">New Password</label> <input
+							type="password" class="form-control" id="newPassword"
+							name="newPassword" required minlength="6">
+					</div>
+					<div class="mb-3">
+						<label for="confirmPassword" class="form-label">Confirm
+							Password</label> <input type="password" class="form-control"
+							id="confirmPassword" name="confirmPassword" required
+							minlength="6">
+					</div>
+					<input type="hidden" id="username" name="username" value="">
+
+					<div class="d-flex justify-content-between align-items-center">
+						<div class="btn-container">
+							<button type="submit" class="btn btn-primary">Save
+								Password</button>
+							<a href="forgotPassword.html" class="btn btn-secondary">Forgot
+								Password?</a>
+
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+
+
+	<div id="languageSettingsModal" class="modal">
+		<div class="modal-content">
+			<div class="modal-header">
+				<span class="close" onclick="closeModal('languageSettingsModal')">&times;</span>
+				<h4 style="text-align: left;">Language Settings</h4>
+			</div>
+			<div class="modal-body">
+				<form id="languageSettingsForm" onsubmit="saveLanguage(event)">
+					<div class="mb-3">
+						<label for="languageSelect" class="form-label">Select
+							Language</label> <select id="languageSelect" class="form-select">
+							<option value="en">English</option>
+							<option value="hi">Hindi</option>
+							<option value="ml">Malayalam</option>
+							<option value="fr">French</option>
+						</select>
+					</div>
+					<button type="submit" class="btn btn-primary">Save
+						Language</button>
+				</form>
+			</div>
+		</div>
+	</div>
+
+	<div id="fontSettingsModal" class="modal">
+		<div class="modal-content">
+			<div class="modal-header">
+				<span class="close" onclick="closeModal('fontSettingsModal')">&times;</span>
+				<h4 style="text-align: left;">Font Settings</h4>
+			</div>
+			<div class="modal-body">
+				<form id="fontSettingsForm" onsubmit="saveFont(event)">
+					<div class="mb-3">
+						<label for="fontSelect" class="form-label">Select Font</label> <select
+							id="fontSelect" class="form-select">
+							<option value="Arial, sans-serif">Arial</option>
+							<option value="Times New Roman, Times, serif">Times New
+								Roman</option>
+							<option value="Georgia, serif">Georgia</option>
+							<option value="Tahoma, sans-serif">Tahoma</option>
+							<option value="Verdana, sans-serif">Verdana</option>
+							<option value="Courier New, monospace">Courier New</option>
+						</select>
+					</div>
+					<button type="submit" class="btn btn-primary">Save Font</button>
+				</form>
+			</div>
+		</div>
+	</div>
+
+	<div id="darkModeModal" class="modal">
+		<div class="modal-content">
+			<div class="modal-header">
+				<span class="close" onclick="closeModal('darkModeModal')">&times;</span>
+				<h4 style="text-align: left;">Dark Mode Settings</h4>
+			</div>
+			<div class="modal-body">
+				<form id="darkModeForm" onsubmit="saveDarkMode(event)">
+					<div class="form-check form-switch">
+						<input class="form-check-input" type="checkbox"
+							id="darkModeSwitch"> <label class="form-check-label"
+							for="darkModeSwitch">Enable Dark Mode</label>
+					</div>
+					<button type="submit" class="btn btn-primary mt-3">Save
+						Settings</button>
+				</form>
+			</div>
+		</div>
+	</div>
+
+	<div id="moreSettingsModal" class="modal">
+		<div class="modal-content">
+			<div class="modal-header">
+				<span class="close" onclick="closeModal('moreSettingsModal')">&times;</span>
+				<h4 style="text-align: left;">More Settings</h4>
+			</div>
+			<div class="modal-body">
+				<ul class="list-view">
+
+					<!-- <li onclick="viewProfile()">Profile Settings</li> -->
+					<li onclick="resetSettings()">Reset Settings</li>
+					<li onclick="aboutUs()">About Us</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+
+	<div id="privacySettingsModal" class="modal">
+		<div class="modal-content">
+			<div class="modal-header">
+				<span class="close" onclick="closeModal('privacySettingsModal')">&times;</span>
+				<h4 style="text-align: left;">Privacy Settings</h4>
+			</div>
+			<div class="modal-body">
+				<form id="privacySettingsForm">
+					<div class="mb-3">
+						<label for="privacyLevel" class="form-label">Privacy Level</label>
+						<select id="privacyLevel" class="form-select" name="privacyLevel">
+							<option value="public">Public</option>
+							<option value="friends">Friends only</option>
+							<option value="private">Private</option>
+						</select>
+					</div>
+					<button type="submit" class="btn btn-primary">Save Privacy
+						Settings</button>
+				</form>
+			</div>
+		</div>
+	</div>
+
+	<div class="footer">
+		<div class="left">&copy; 2024 PennyTracker. All rights reserved.
+		</div>
+
+	</div>
+
+	<script src="Settings.js"></script>
+
+
+</body>
+</html>

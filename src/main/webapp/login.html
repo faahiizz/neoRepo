@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Login</title>
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+	crossorigin="anonymous">
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+	integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+	crossorigin="anonymous"></script>
+
+<style>
+body {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 100vh;
+	margin: 0;
+	font-family: Arial, sans-serif;
+	background-color: #f0f2f5; /* Facebook-like background color */
+}
+
+.login-container {
+	background-color: #ffffff;
+	padding: 40px;
+	border-radius: 8px;
+	box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+	width: 100%;
+	max-width: 400px; /* Adjusted container width */
+	margin: 20px;
+	position: absolute;
+	right: 25%; /* Adjust this value to move container further right */
+}
+
+.login-container h1 {
+	margin-bottom: 30px;
+	font-size: 28px;
+	text-align: center;
+	color: #333;
+}
+
+.form-group {
+	position: relative;
+	margin: 20px 0;
+}
+
+.form-group input {
+	width: 100%;
+	padding: 10px;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	box-sizing: border-box;
+	font-size: 16px;
+}
+
+.form-group label {
+	position: absolute;
+	top: 10px;
+	left: 10px;
+	font-size: 16px;
+	color: #aaa;
+	transition: all 0.2s ease;
+	pointer-events: none;
+	background-color: #fff;
+	padding: 0 4px;
+}
+
+.form-group input:focus ~ label, .form-group input:not(:placeholder-shown) 
+	~ label {
+	top: -15px;
+	left: 10px;
+	font-size: 12px;
+	color: #2a6c4c;
+}
+
+.login-container button {
+	width: 100%;
+	padding: 10px;
+	background-color: #2a6c4c;
+	color: #fff;
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
+	font-size: 20px;
+}
+
+.login-container button:hover {
+	background-color: #335247;
+}
+
+.create-account {
+	text-align: center;
+	margin-top: 20px;
+}
+
+.create-account a {
+	color: #1aa05f;
+	text-decoration: none;
+}
+
+.create-account a:hover {
+	text-decoration: underline;
+}
+
+.side-text {
+	position: absolute;
+	top: 50%;
+	left: 15%;
+	transform: translateY(-50%);
+	max-width: 300px;
+}
+
+.side-text h2 {
+	font-size: 36px;
+	color: #2a6c4c;
+	margin-bottom: 10px;
+}
+
+.side-text p {
+	font-size: 18px;
+	color: #333;
+	margin: 0;
+	display: inline; /* Make it inline */
+}
+</style>
+</head>
+<body>
+	<div class="side-text">
+		<h2>
+			<b>PennyTracker</b>
+		</h2>
+
+		<p>Your ultimate tool for managing your finances effortlessly</p>
+	</div>
+	<div class="login-container">
+		<h1>Login</h1>
+		<form action="Loginservlet" method="post">
+			<div class="form-group">
+				<input type="text" id="loginIdentifier" name="loginIdentifier"
+					placeholder=" " required> <label for="loginIdentifier">Username/Email/Phone:</label>
+			</div>
+			<div class="form-group">
+				<input type="password" id="password" name="password" placeholder=" "
+					required> <label for="password">Password:</label>
+			</div>
+			<button type="submit">Login</button>
+		</form>
+		<a href="forgotPassword.html" class="link">Forgot Password?</a>
+		<div class="create-account">
+			<p>
+				Don't have an account? <a href="AccountCreation.html">Create
+					Account</a>
+			</p>
+		</div>
+	</div>
+</body>
+</html>

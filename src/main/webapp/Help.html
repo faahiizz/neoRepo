@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Help - Personal Finance Tracker</title>
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+	crossorigin="anonymous">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+	integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+	crossorigin="anonymous"></script>
+<style>
+body {
+	font-family: Arial, sans-serif;
+	background-color: #ffffff;
+	margin: 0;
+	padding: 0;
+}
+
+.dark-mode {
+	background-color: #333;
+	color: #fff;
+}
+
+.header {
+	background-color: #335247;
+	color: #fff;
+	padding: 10px 0;
+	text-align: right;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.header .icon {
+	color: #fffdfd;
+	font-size: 20px;
+	margin-right: 20px;
+	margin-left: 10px;
+	cursor: pointer;
+}
+
+.header .right {
+	text-align: right;
+	margin: 0 10px;
+}
+
+.header button {
+	color: #ffffff;
+	background-color: transparent;
+	border: none;
+	font-size: 17px;
+}
+
+.header .dropdown-toggle {
+	color: #ffffff;
+	font-size: 24px;
+}
+
+.dropdown-menu {
+	transition: opacity 0.3s ease, transform 0.3s ease;
+	opacity: 0;
+	transform: translateY(-10px);
+}
+
+.dropdown-menu.show {
+	opacity: 1;
+	transform: translateY(0);
+}
+
+.container {
+	max-width: 1100px;
+	margin: auto;
+	padding: 40px;
+}
+
+.content h1 {
+	margin-top: 20px;
+	font-size: 24px;
+	color: #333;
+}
+
+.content p {
+	font-size: 16px;
+	color: #555;
+	line-height: 1.6;
+	margin-bottom: 20px;
+}
+
+.footer {
+	position: fixed;
+	bottom: 0;
+	width: 100%;
+	background-color: #335247;
+	color: #fff;
+	padding: 3px 0;
+	text-align: right;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.footer .left {
+	text-align: left;
+	margin-left: 20px;
+}
+
+.footer button {
+	margin-right: 20px;
+	color: #ffffff;
+	background-color: transparent;
+	border: none;
+	font-size: 17px;
+	cursor: pointer;
+}
+</style>
+</head>
+<script src="Settings.js"></script>
+
+<body>
+	<div class="header">
+		<div class="left">
+			<div class="icon" onclick="goHome()">
+				<i class="fa fa-home"></i>
+			</div>
+		</div>
+		<div class="right">
+			<div class="dropdown">
+				<button class="dots-icon" type="button" id="dropdownMenuButton"
+					data-bs-toggle="dropdown" aria-expanded="false">
+					<span class="dots-icon">&#8942;</span>
+				</button>
+				<ul class="dropdown-menu dropdown-menu-end"
+					aria-labelledby="dropdownMenuButton">
+					<li><a class="dropdown-item" href="Settings.html">Settings</a></li>
+					<li><a class="dropdown-item" href="PreviousHistory.html">Previous
+							History</a></li>
+					<li><a class="dropdown-item" href="login.html">Logout</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+
+	<div class="container content">
+		<h1>
+			<b>Help</b>
+		</h1>
+		<h2>Getting Started</h2>
+		<p>Welcome to the PennyTracker! This guide will help you navigate
+			through the main features of the application.</p>
+
+		<h3>1. Creating an Account</h3>
+		<p>To use the full functionality of the PennyTracker, you need to
+			create an account. Click on the "Sign Up" button on the homepage and
+			fill in the required information. After registration, you can log in
+			using your username and password.</p>
+
+		<h3>2. Adding Income and Expenses</h3>
+		<p>After logging in, you can start tracking your finances by
+			adding your income and expenses. Navigate to the dashboard and enter
+			your monthly income. Then, you can add expenses by specifying the
+			category and amount. The system will automatically calculate your
+			savings and display the data in charts for easy analysis.</p>
+
+		<h3>3. Viewing and Managing Data</h3>
+		<p>All your financial data is displayed in the summary section on
+			the dashboard. You can view, edit, or delete entries as needed. Use
+			the filter options to see data for specific months or categories.</p>
+
+		<h3>4. Using Charts</h3>
+		<p>The PennyTracker provides visual representations of your
+			financial data through various charts. These charts help you
+			understand your spending patterns and make informed decisions.</p>
+
+		<h3>5. Updating Profile and Settings</h3>
+		<p>You can update your profile information and customize your
+			settings by clicking on the "Profile" and "Settings" buttons in the
+			header. Make sure to save any changes you make.</p>
+
+		<h3>6. Getting Support</h3>
+		<p>If you encounter any issues or have any questions, you can
+			contact our support team by clicking on the "Contact Us" button in
+			the footer. We are here to help!</p>
+
+		<h3>Frequently Asked Questions</h3>
+		<h4>How do I reset my password?</h4>
+		<p>To reset your password, click on the "Forgot Password" link on
+			the login page and follow the instructions.</p>
+
+		<h4>Can I export my financial data?</h4>
+		<p>Currently, the Personal Finance Tracker does not support
+			exporting data. However, we are working on adding this feature in
+			future updates.</p>
+
+		<h4>Is my data secure?</h4>
+		<p>Yes, we take data security seriously. Your information is
+			encrypted and stored securely. Please review our Privacy Policy for
+			more details.</p>
+	</div>
+
+	<div class="footer">
+		<div class="left">
+			<p>&copy; 2024 PennyTracker. All rights reserved.</p>
+		</div>
+
+	</div>
+
+	<script>
+		function goHome() {
+			window.location.href = 'Dashboard.html';
+		}
+
+		function viewProfile() {
+			window.location.href = 'Profile.html';
+		}
+
+		function viewSettings() {
+			window.location.href = 'Settings.html';
+		}
+
+		function logout() {
+			window.location.href = 'login.html';
+		}
+
+		function contactUs() {
+			window.location.href = 'ContactUs.html';
+		}
+
+		function aboutUs() {
+			window.location.href = 'AboutUs.html';
+		}
+	</script>
+</body>
+</html>

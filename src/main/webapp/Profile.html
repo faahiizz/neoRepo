@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile Page</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color:#f0f2f5;
+            height: 100vh;
+            justify-content: center;
+        }
+        .dark-mode {
+	background-color: #333;
+	color: #fff;
+}
+
+        .container {
+            background-color: #fdfdfd;
+            padding: 40px 50px;
+            border-radius: 10px;
+            box-shadow: 0 0px 5px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 500px;
+            position: relative;
+        }
+
+        h1 {
+            margin-bottom: 30px;
+            font-size: 28px;
+            color: #333;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 14px;
+            color: #555;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 12px;
+            font-size: 16px;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+            background-color: #e9ecef;
+            cursor: not-allowed;
+        }
+
+        .input-group input.editable {
+            background-color: #fff;
+            cursor: text;
+        }
+
+        .btn-container {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .button {
+            width: 48%;
+            padding: 10px;
+            font-size: 16px;
+            color: #fff;
+            background-color: #007bff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .button:hover {
+            background-color: #0056b3;
+        }
+
+        .button:disabled {
+            background-color: #ced4da;
+            cursor: not-allowed;
+        }
+
+        .button.save {
+            background-color: #335247;
+        }
+
+        .button.save:hover {
+            background-color: #158f4b;
+        }
+
+        .header {
+            background-color: #335247;
+            color: #fff;
+            padding: 10px 0;
+            text-align: right;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            width: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+        }
+
+        .header .icon {
+            color: #fffdfd;
+            font-size: 20px;
+            margin-right: 20px;
+            margin-left: 10px;
+            cursor: pointer;
+        }
+
+        .header .right {
+            text-align: right;
+            margin: 0 10px;
+        }
+
+        .header button {
+            color: #ffffff;
+            background-color: transparent;
+            border: none;
+            font-size: 17px;
+            cursor: pointer;
+        }
+
+        .header button:hover {
+            text-decoration: underline;
+        }
+
+        .header .dropdown-toggle {
+            color: #ffffff;
+            font-size: 24px;
+        }
+
+        .dropdown-menu {
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            opacity: 0;
+            transform: translateY(-10px);
+        }
+
+        .dropdown-menu.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+.modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.4);
+        }
+        .modal-content {
+            background-color: #fffdfd;
+            margin: 15% auto; /* Center horizontally */
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 500px;
+            border-radius: 10px;
+        }
+        .modal-header, .modal-body, .modal-footer {
+            padding: 10px;
+        }
+        .modal-header {
+            background-color: #335247;
+            color: white;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+            display: flex;
+            justify-content: flex-start;  /* Align items to the start (left) */
+            align-items: center;
+        }
+        .modal-header h4 {
+            margin: 0;  /* Remove default margin */
+            text-align: left;  /* Ensure text is aligned to the left */
+            padding: 0px 10px;
+            flex-grow: 1;  /* Allow the header text to take up available space */
+        }
+        .modal-header .close {
+            margin-left: 0;  /* Move the close button to the far right */
+        }
+        .close {
+            color: white;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .close:hover,
+        .close:focus {
+            color: #000;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .profile-container {
+            margin-top: 60px; /* Added to offset the fixed header */
+        }
+    </style>
+</head>
+<script src="Settings.js"></script>
+
+<body>
+    <div class="header">
+        <div class="icon" onclick="goHome()">
+            <i class="fa fa-home"></i>
+        </div>
+        <div class="right">
+            <div class="dropdown">
+                <button class="dots-icon" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                    <span class="dots-icon">&#8942;</span>
+                </button>
+                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
+                	<li><a class="dropdown-item" onclick="openModal('changePasswordModal')"></i>Change Password</a></li>
+                    <li><a class="dropdown-item" href="Settings.html">Settings</a></li>
+                    <li><a class="dropdown-item" href="PreviousHistory.html">Previous History</a></li>
+                    <li><a class="dropdown-item" href="login.html" >Logout</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+
+	  <div id="changePasswordModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="close" onclick="closeModal('changePasswordModal')">&times;</span>
+                <h4 style="text-align: left;">Change Password</h4>
+            </div>
+            <div class="modal-body">
+                <form id="changePasswordForm">
+                    <div class="mb-3">
+                        <label for="currentPassword" class="form-label">Current Password</label>
+                        <input type="password" class="form-control" id="currentPassword" name="currentPassword" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="newPassword" class="form-label">New Password</label>
+                        <input type="password" class="form-control" id="newPassword" name="newPassword" required minlength="6">
+                    </div>
+                    <div class="mb-3">
+                        <label for="confirmPassword" class="form-label">Confirm Password</label>
+                        <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" required minlength="6">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Save Password</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="container profile-container">
+        
+        <h1><b>My Profile </b></h1>
+        
+        <form id="ProfileServlet" method="GET" onsubmit="saveChanges(); return false;">
+            <div class="input-group">
+                <label for="name">Name</label>
+                <input type="text" id="name" value="" disabled>
+            </div>
+            <div class="input-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" value="" disabled>
+            </div>
+            <div class="input-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" value="" disabled>
+            </div>
+            <div class="input-group">
+                <label for="phone">Phone Number</label>
+                <input type="tel" id="phone" value="" disabled>
+            </div>
+            <div class="btn-container">
+                <button type="button" class="button" id="edit-btn" onclick="enableEditing()">Edit</button>
+                <button type="submit" class="button save" id="save-btn" disabled>Save</button>
+            </div>
+        </form>
+    </div>
+</body>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            fetchProfileData();
+        });
+        
+
+        function fetchProfileData() { 
+            // Parse the URL search parameters
+            const urlParams = new URLSearchParams(window.location.search);
+            const username = urlParams.get('username');
+            
+            // Log the entire query string and the username
+            console.log('URL search params:', window.location.search); 
+            console.log('Username from URL:', username);
+
+            // Check if the username is provided
+            if (!username) {
+                console.error('No username provided in the URL');
+                return;
+            }
+
+            // Fetch profile data from the server
+            fetch(`ProfileServlet?username=${encodeURIComponent(username)}`)
+                .then(response => {
+                    // Log the response status
+                    console.log('Response status:', response.status); 
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    // Log the fetched data
+                    console.log('Fetched data:', data); 
+                    if (data.name && data.username && data.email && data.phone) {
+                        // Update form fields with fetched data
+                        document.getElementById('name').value = data.name;
+                        document.getElementById('username').value = data.username;
+                        document.getElementById('email').value = data.email;
+                        document.getElementById('phone').value = data.phone;
+                    } else {
+                        console.error('Incomplete user data found');
+                    }
+                })
+                .catch(error => console.error('Error fetching profile data:', error));
+        }
+
+        // Call the function to fetch profile data when the page loads
+        
+
+
+
+
+
+        function enableEditing() {
+            const inputs = document.querySelectorAll('.input-group input');
+            inputs.forEach(input => {
+                input.disabled = false;
+                input.classList.add('editable');
+            });
+            document.getElementById('edit-btn').disabled = true;
+            document.getElementById('save-btn').disabled = false;
+        }
+
+        function saveChanges() {
+            const inputs = document.querySelectorAll('.input-group input');
+            inputs.forEach(input => {
+                input.disabled = true;
+                input.classList.remove('editable');
+            });
+            document.getElementById('edit-btn').disabled = false;
+            document.getElementById('save-btn').disabled = true;
+
+            const urlParams = new URLSearchParams(window.location.search);
+            const username = urlParams.get('username');
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const phone = document.getElementById('phone').value;
+
+            const params = new URLSearchParams();
+            params.append('username', username);
+            params.append('name', name);
+            params.append('email', email);
+            params.append('phone', phone);
+
+            fetch('ProfileServlet', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: params
+            })
+            .then(response => {
+                if (response.ok) {
+                    console.log('Profile updated successfully');
+                } else {
+                    console.error('Error updating profile');
+                }
+            })
+            .catch(error => console.error('Network error:', error));
+        }
+        
+        
+        function openModal(modalId) {
+            document.getElementById(modalId).style.display = "block";
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = "none";
+        }
+
+      
+        document.addEventListener('DOMContentLoaded', function() {
+            // Fetch the username from the server
+            function fetchUsername() {
+                fetch('GetUsernameServlet')
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.username && data.name) {
+                            document.getElementById('username').value = data.username;
+                            document.getElementById("usernameDisplay").innerText = data.name;
+                            /* document.getElementById('profile-button').setAttribute('data-username', data.username); */
+         				   
+                        } else {
+                            console.error("Error fetching user data:", data.error);
+                        }
+                    })
+                    .catch(error => console.error('Error fetching username:', error));
+            }
+
+            // Function to handle password change form submission
+            function changePassword(event) {
+                event.preventDefault();
+                const username = document.getElementById('username').value;
+                const currentPassword = document.getElementById('currentPassword').value;
+                const newPassword = document.getElementById('newPassword').value;
+                const confirmPassword = document.getElementById('confirmPassword').value;
+
+                if (newPassword !== confirmPassword) {
+                    alert('Passwords do not match!');
+                } else if (newPassword.length < 6) {
+                    alert('Password must be at least 6 characters long!');
+                } else {
+                    fetch('ChangePasswordServlet', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded'
+                        },
+                        body: new URLSearchParams({
+                            'username': username,
+                            'currentPassword': currentPassword,
+                            'newPassword': newPassword,
+                            'confirmPassword': confirmPassword
+                        })
+                    })
+                    .then(response => response.text())
+                    .then(text => {
+                        if (text.includes('successfully')) {
+                            alert('Password changed successfully!');
+                            document.getElementById('changePasswordForm').reset();
+                            closeModal('changePasswordModal');
+                        } else {
+                            alert('Failed to change password: ' + text);
+                        }
+                    })
+                    .catch(error => console.error('Error:', error));
+                }
+            }
+
+            fetchUsername();
+            document.getElementById('changePasswordForm').addEventListener('submit', changePassword);
+        });
+
+        
+
+        function goHome() {
+            window.location.href = 'Dashboard.html';
+        }
+
+        
+    </script>
+</head>
+
+</html>

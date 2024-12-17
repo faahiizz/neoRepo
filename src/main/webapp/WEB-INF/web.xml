@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<element>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="https://jakarta.ee/xml/ns/jakartaee" 
+xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd" id="WebApp_ID" version="6.0">
+  <display-name>s-login</display-name>
+  <welcome-file-list>
+    <welcome-file>login.html</welcome-file>
+    <welcome-file>default.html</welcome-file>
+    <welcome-file>default.jsp</welcome-file>
+    <welcome-file>default.html</welcome-file>
+  </welcome-file-list>
+  <servlet>
+    <description></description>
+    <display-name>Loginservlet</display-name>
+    <servlet-name>Loginservlet</servlet-name>
+    <servlet-class>com.app.Loginservlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Loginservlet</servlet-name>
+    <url-pattern>/Loginservlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>AccountCreation</display-name>
+    <servlet-name>AccountCreation</servlet-name>
+    <servlet-class>com.app.AccountCreation</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AccountCreation</servlet-name>
+    <url-pattern>/AccountCreation</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>DashboardServlet</display-name>
+    <servlet-name>DashboardServlet</servlet-name>
+    <servlet-class>com.app.DashboardServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>DashboardServlet</servlet-name>
+    <url-pattern>/DashboardServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>FinanceServlet</servlet-name>
+    <servlet-class>com.app.FinanceServlet</servlet-class>
+</servlet>
+<servlet-mapping>
+    <servlet-name>FinanceServlet</servlet-name>
+    <url-pattern>/FinanceServlet</url-pattern>
+</servlet-mapping>
+  
+</web-app>
+
+</element>
